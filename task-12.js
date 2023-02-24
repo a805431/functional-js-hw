@@ -2,14 +2,14 @@
 //function Spy() е custom constructor function
 function Spy(target, method) {
     // SOLUTION GOES HERE
-    this.count = 0;
+    let count = 0;
 
     let originalMethod = target[method];
     let self = this;
     
     this.f = function(){
       count += 1;
-    }
+    }()
 
     target[method] = function(){
       self.f();
