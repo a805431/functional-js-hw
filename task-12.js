@@ -1,37 +1,35 @@
 
 //function Spy() е custom constructor function
-function Spy(target, method) {
-    // SOLUTION GOES HERE
-    let count = 0;
+// function Spy(target, method) {
+//     // SOLUTION GOES HERE
+//     let count = 0;
 
-    let originalMethod = target[method];
-    let self = this;
+//     let originalMethod = target[method];
+//     let self = this;
     
-    this.f = function(){
-      count += 1;
-    }()
+//     this.f = function(){
+//       count += 1;
+//     }()
 
-    target[method] = function(){
-      self.f();
-      originalMethod.call(this, ...arguments);
-    }
-  }
+//     target[method] = function(){
+//       self.f();
+//       originalMethod.call(this, ...arguments);
+//     }
+//   }
 
-  // class Spy {
-  //   constructor(obj, method) {
-  //     this.count = 0
-  
-  //     const _method = obj[method] // save the ref to the original method
-  //     const self = this
-  
-  //     // wrap the method call with additional logic
-  //     obj[method] = function () {
-  //       self.count++
-  //       _method.call(this, ...arguments)
-  //     }
-  //   }
-  // }
-  
+function Spy(target, method){
+  let spy = {
+    count: 0,
+  };
+  const orig = target[method];
+
+  target[method] = function () {
+    spy.count++;
+    return orig.apply(this, arguments);
+  };
+  return spy;
+}
+
   module.exports = Spy
 
   let spy = Spy(console, 'error')
